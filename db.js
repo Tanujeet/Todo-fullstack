@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { boolean } = require("zod");
 
 mongoose.connect(
   "mongodb+srv://Harsh:yfespO74AE1tGTTq@cluster0.rfzqz.mongodb.net/"
@@ -8,7 +7,7 @@ mongoose.connect(
 const todoSchema = new mongoose.Schema({
   title: String,
   description: String,
-  completed: boolean,
+  completed: { type: Boolean, default: false },
 });
 
 const todo = mongoose.model("todo", todoSchema);

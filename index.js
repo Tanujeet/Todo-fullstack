@@ -1,12 +1,12 @@
 const express = require("express");
 const { createTodo, updatedTodo } = require("./type");
-const { todo, todo } = require("./db");
+const { todo } = require("./db");
 
 const app = express();
 app.use(express.json());
 
 // GET route
-app.post("/todo", async function (req, res) {
+app.post("/todos", async function (req, res) {
   const createPayLoad = req.body;
   const parsedPlayLoad = createTodo.safeParse(createPayLoad);
 
