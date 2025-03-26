@@ -1,11 +1,12 @@
 const express = require("express");
 const { createTodo, updatedTodo } = require("./type");
+const { todo, todo } = require("./db");
 
 const app = express();
 app.use(express.json());
 
 // GET route
-app.get("/todo", function (req, res) {
+app.post("/todo", async function (req, res) {
   const createPayLoad = req.body;
   const parsedPlayLoad = createTodo.safeParse(createPayLoad);
 
@@ -15,14 +16,18 @@ app.get("/todo", function (req, res) {
     });
     return;
   }
-
+  await todo.create({
+    title: createPayLoad.title,
+    description: createPayLoad.description,
+    completed: false,
+  });
   res.json({
-    message: "Your new todo has been created",
+    message: "Todo is created successfully",
   });
 });
 
 // POST route
-app.post("/todos", function (req, res) {
+app.put("/completed", async function (req, res) {
   const updatePayload = req.body;
   const parsedPlayLoad = updatedTodo.safeParse(updatePayload);
 
@@ -32,20 +37,27 @@ app.post("/todos", function (req, res) {
     });
     return;
   }
+  await todo.update(
+    {
+      _id: req.body.id,
+    },
+    {
+      completed: true,
+    }
+  );
 
   res.json({
     message: "Todo updated successfully",
   });
 });
 
-// PUT route
-app.put("/completed", function (req, res) {
+app.get("/todos", async function (req, res) {
+  const todos = await todo.find({});
   res.json({
-    message: "Todo marked as completed",
+    todos,
   });
 });
 
-// Start the server
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });

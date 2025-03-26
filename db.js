@@ -1,18 +1,18 @@
-const moongoose = require("moongoose");
+const mongoose = require("mongoose");
 const { boolean } = require("zod");
 
-moongoose.connect(
+mongoose.connect(
   "mongodb+srv://Harsh:yfespO74AE1tGTTq@cluster0.rfzqz.mongodb.net/"
 );
 
-const todoSchema = new moongoose.Schema({
+const todoSchema = new mongoose.Schema({
   title: String,
   description: String,
   completed: boolean,
 });
 
-const todo = moongoose.model("todo", todoSchema);
+const todo = mongoose.model("todo", todoSchema);
 
-module.exports({
+module.exports = {
   todo,
-});
+};
