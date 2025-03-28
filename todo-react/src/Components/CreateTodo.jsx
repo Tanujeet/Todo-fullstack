@@ -16,7 +16,7 @@ const CreateTodo = () => {
         }}
         onChange={function (e) {
           const value = e.target.value;
-          setTitle(e.target.value);
+          setTitle(value);
         }}
       />
       <br />
@@ -29,7 +29,7 @@ const CreateTodo = () => {
         }}
         onChange={function (e) {
           const value = e.target.value;
-          setDescription(e.target.value);
+          setDescription(value);
         }}
       />
       <br />
